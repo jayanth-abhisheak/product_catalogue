@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{ product.name }} - Details</title></head>
+<body>
+  <h1>{{ product.name }}</h1>
+  <img src="{{ url_for('static', filename=product.image) }}" width="400" height="300" alt="{{ product.name }}">
+  <p>{{ product.description }}</p>
+  <p><b>Price: ₹{{ product.price }}</b> | Stock: {{ product.stock }}</p>
+
+  <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post">
+    <button type="submit">Add to Cart</button>
+  </form>
+
+  <p><a href="{{ url_for('home') }}">← Back to Catalogue</a></p>
+</body>
+</html>

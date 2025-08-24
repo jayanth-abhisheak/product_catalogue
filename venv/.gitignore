@@ -1,0 +1,8 @@
+# Creatvenv/
+__pycache__/
+*.pyc
+instance/
+*.db
+.env
+ed by venv; see https://docs.python.org/3/library/venv.html
+

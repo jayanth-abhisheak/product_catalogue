@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Catalogue</title>
+  <style>
+    body{font-family:Arial;margin:20px;background:#f9f9f9}
+    .product{border:1px solid #ddd;border-radius:8px;padding:15px;margin:10px 0;background:#fff}
+    .price{color:green;font-weight:bold}
+    a,button{margin-right:8px}
+  </style>
+</head>
+<body>
+  <h1>Online Product Catalogue</h1>
+
+  <p>
+    {% if current_user.is_authenticated %}
+      Hello, <b>{{ current_user.name }}</b> —
+      <a href="{{ url_for('logout') }}">Logout</a>
+      | <a href="{{ url_for('my_orders') }}">My Orders</a>
+      {% if current_user.role == 'admin' %}
+        | <a href="{{ url_for('admin_products') }}">Admin: Products</a>
+        | <a href="{{ url_for('admin_orders') }}">Admin: Orders</a>
+      {% endif %}
+    {% else %}
+      <a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('signup') }}">Sign Up</a>
+    {% endif %}
+  </p>
+
+  <form action="{{ url_for('search') }}" method="get">
+    <input type="text" name="query" placeholder="Search products..." value="{{ request.args.get('query','') }}">
+    <select name="price_range">
+      <option value="">-- Filter by Price --</option>
+      <option value="low"   {% if request.args.get('price_range')=='low' %}selected{% endif %}>Below ₹5000</option>
+      <option value="medium"{% if request.args.get('price_range')=='medium' %}selected{% endif %}>₹5000 - ₹30000</option>
+      <option value="high"  {% if request.args.get('price_range')=='high' %}selected{% endif %}>Above ₹30000</option>
+    </select>
+    <button type="submit">Search</button>
+    <a href="{{ url_for('view_cart') }}">🛒 View Cart</a>
+  </form>
+
+  <ul>
+    {% for product in products %}
+      <li class="product">
+        <h2>{{ product.name }}</h2>
+        <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}" width="300" height="200">
+        <p>{{ product.description }}</p>
+        <p class="price">Price: ₹{{ product.price }} | Stock: {{ product.stock }}</p>
+        <a href="{{ url_for('product_detail', product_id=product.id) }}">View Details</a>
+        <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="post" style="display:inline;">
+          <button type="submit">Add to Cart</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{ 'Edit' if product else 'Add' }} Product</title></head>
+<body>
+  <h1>{{ 'Edit' if product else 'Add' }} Product</h1>
+  <form method="post">
+    <label>Name</label><br>
+    <input name="name" value="{{ product.name if product else '' }}" required><br><br>
+    <label>Description</label><br>
+    <textarea name="description" required>{{ product.description if product else '' }}</textarea><br><br>
+    <label>Price (₹)</label><br>
+    <input type="number" name="price" value="{{ product.price if product else '' }}" required><br><br>
+    <label>Stock</label><br>
+    <input type="number" name="stock" value="{{ product.stock if product else 0 }}" required><br><br>
+    <label>Image filename (in /static)</label><br>
+    <input name="image" value="{{ product.image if product else '' }}"><br><br>
+    <button type="submit">Save</button>
+  </form>
+  <p><a href="{{ url_for('admin_products') }}">← Back to Products</a></p>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head><title>{{ 'Edit' if product else 'Add' }} Product</title></head>
+<body>
+  <h1>{{ 'Edit' if product else 'Add' }} Product</h1>
+  <form method="post">
+    <label>Name</label><br>
+    <input name="name" value="{{ product.name if product else '' }}" required><br><br>
+    <label>Description</label><br>
+    <textarea name="description" required>{{ product.description if product else '' }}</textarea><br><br>
+    <label>Price (₹)</label><br>
+    <input type="number" name="price" value="{{ product.price if product else '' }}" required><br><br>
+    <label>Stock</label><br>
+    <input type="number" name="stock" value="{{ product.stock if product else 0 }}" required><br><br>
+    <label>Image filename (in /static)</label><br>
+    <input name="image" value="{{ product.image if product else '' }}"><br><br>
+    <button type="submit">Save</button>
+  </form>
+  <p><a href="{{ url_for('admin_products') }}">← Back to Products</a></p>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>My Orders</title></head>
+<body>
+  <h1>My Orders</h1>
+  {% if orders %}
+    {% for o in orders %}
+      <div style="border:1px solid #ddd;padding:10px;margin:10px 0;">
+        <p><b>Order #{{ o.id }}</b> — {{ o.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+        <p>Status: {{ o.status }}</p>
+        <ul>
+          {% for it in o.items %}
+            <li>{{ it.product.name }} × {{ it.quantity }} — ₹{{ it.price_at_purchase }} each</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No past orders yet.</p>
+  {% endif %}
+  <p><a href="{{ url_for('home') }}">← Back to Catalogue</a></p>
+</body>
+</html>

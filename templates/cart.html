@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Cart</title>
+  <style>.row{border-bottom:1px solid #ddd;padding:8px 0}</style>
+</head>
+<body>
+  <h1>Your Cart</h1>
+  {% if items %}
+    <ul>
+      {% for it in items %}
+        <li class="row">
+          {{ it.product.name }} — ₹{{ it.product.price }} × {{ it.qty }} = ₹{{ it.line_total }}
+          <form action="{{ url_for('remove_from_cart', index=loop.index0) }}" method="post" style="display:inline;">
+            <button type="submit">Remove</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+    <p><b>Total: ₹{{ total }}</b></p>
+    {% if current_user.is_authenticated %}
+      <a href="{{ url_for('checkout') }}"><button>Proceed to Checkout</button></a>
+    {% else %}
+      <p>Please <a href="{{ url_for('login') }}">login</a> to checkout.</p>
+    {% endif %}
+  {% else %}
+    <p>Your cart is empty.</p>
+  {% endif %}
+  <p><a href="{{ url_for('home') }}">← Back to Catalogue</a></p>
+</body>
+</html>
