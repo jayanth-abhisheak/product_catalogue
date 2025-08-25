@@ -1,8 +1,46 @@
-# Creatvenv/
-__pycache__/
+# Python
 *.pyc
-instance/
-*.db
-.env
-ed by venv; see https://docs.python.org/3/library/venv.html
+__pycache__/
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+*.manifest
+*.spec
 
+# Virtual environment
+venv/
+ENV/
+env/
+.env/
+
+# Flask / Django specific
+instance/
+*.sqlite3
+*.db
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Coverage / Testing
+htmlcov/
+.coverage
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+*.hypothesis/
+.pytest_cache/
