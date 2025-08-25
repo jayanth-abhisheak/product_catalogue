@@ -1,15 +1,6 @@
 # Python
 *.pyc
 __pycache__/
-*.pyo
-*.pyd
-*.pdb
-*.egg
-*.egg-info/
-dist/
-build/
-*.manifest
-*.spec
 
 # Virtual environment
 venv/
@@ -17,30 +8,5 @@ ENV/
 env/
 .env/
 
-# Flask / Django specific
-instance/
-*.sqlite3
-*.db
-
-# IDE / Editor
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-
-# OS
-.DS_Store
-Thumbs.db
-
 # Logs
 *.log
-
-# Coverage / Testing
-htmlcov/
-.coverage
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-*.hypothesis/
-.pytest_cache/
