@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head><title>Admin - Orders</title></head>
+<head>
+    <title>All Orders</title>
+</head>
 <body>
-  <h1>Admin: Orders</h1>
-  <p><a href="{{ url_for('home') }}">Home</a></p>
-  {% for o in orders %}
-    <div style="border:1px solid #ddd;padding:10px;margin:10px 0;">
-      <p><b>Order #{{ o.id }}</b> — {{ o.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
-      <p>Customer: {{ o.user.name }} ({{ o.user.email }})</p>
-      <p>Status:
-        <form method="post" style="display:inline;">
-          <input type="hidden" name="order_id" value="{{ o.id }}">
-          <select name="status">
-            {% for s in ['Pending','Shipped','Delivered'] %}
-              <option value="{{ s }}" {% if o.status==s %}selected{% endif %}>{{ s }}</option>
+    <!-- 🔹 Navigation -->
+    <p>
+        <a href="{{ url_for('catalogue') }}">🏠 Home</a> |
+        <a href="{{ url_for('admin_products') }}">⚙ Manage Products</a> |
+        <a href="{{ url_for('logout') }}">🚪 Logout</a>
+    </p>
+    <hr>
+
+    <h1>📑 All Orders (Admin)</h1>
+
+    {% if orders %}
+        <ul>
+            {% for order in orders %}
+                <li>
+                    Order ID: {{ order.id }},
+                    User ID: {{ order.user_id }},
+                    Product ID: {{ order.product_id }},
+                    Qty: {{ order.quantity }},
+                    Address: {{ order.address }},
+                    Status: {{ order.status }}
+                </li>
             {% endfor %}
-          </select>
-          <button type="submit">Update</button>
-        </form>
-      </p>
-      <p>Address: {{ o.address }} | Phone: {{ o.phone }}</p>
-      <ul>
-        {% for it in o.items %}
-          <li>{{ it.product.name }} × {{ it.quantity }} — ₹{{ it.price_at_purchase }} each</li>
-        {% endfor %}
-      </ul>
-    </div>
-  {% endfor %}
+        </ul>
+    {% else %}
+        <p>No orders yet.</p>
+    {% endif %}
 </body>
 </html>

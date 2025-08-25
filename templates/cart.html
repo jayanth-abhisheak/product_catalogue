@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Your Cart</title>
-  <style>.row{border-bottom:1px solid #ddd;padding:8px 0}</style>
+    <title>My Cart</title>
 </head>
 <body>
-  <h1>Your Cart</h1>
-  {% if items %}
-    <ul>
-      {% for it in items %}
-        <li class="row">
-          {{ it.product.name }} — ₹{{ it.product.price }} × {{ it.qty }} = ₹{{ it.line_total }}
-          <form action="{{ url_for('remove_from_cart', index=loop.index0) }}" method="post" style="display:inline;">
-            <button type="submit">Remove</button>
-          </form>
-        </li>
-      {% endfor %}
-    </ul>
-    <p><b>Total: ₹{{ total }}</b></p>
-    {% if current_user.is_authenticated %}
-      <a href="{{ url_for('checkout') }}"><button>Proceed to Checkout</button></a>
+    <!-- 🔹 Navigation -->
+    <p>
+        <a href="{{ url_for('catalogue') }}">🏠 Home</a> |
+        <a href="{{ url_for('cart') }}">🛒 Cart</a> |
+        <a href="{{ url_for('my_orders') }}">📦 My Orders</a> |
+        <a href="{{ url_for('logout') }}">🚪 Logout</a>
+    </p>
+    <hr>
+
+    <h1>🛒 My Cart</h1>
+
+    {% if products %}
+        <ul>
+            {% for p in products %}
+                <li>
+                    {{ p.product.name }} - ₹{{ p.product.price }} x {{ p.item.quantity }}
+                    <a href="{{ url_for('remove_from_cart', item_id=p.item.id) }}">❌ Remove</a>
+                </li>
+            {% endfor %}
+        </ul>
+        <p><strong>Total: ₹{{ total }}</strong></p>
+
+        <form method="POST" action="{{ url_for('place_order') }}">
+            <p>Delivery Address:</p>
+            <textarea name="address" required></textarea><br>
+            <button type="submit">Place Order</button>
+        </form>
     {% else %}
-      <p>Please <a href="{{ url_for('login') }}">login</a> to checkout.</p>
+        <p>Your cart is empty.</p>
     {% endif %}
-  {% else %}
-    <p>Your cart is empty.</p>
-  {% endif %}
-  <p><a href="{{ url_for('home') }}">← Back to Catalogue</a></p>
 </body>
 </html>

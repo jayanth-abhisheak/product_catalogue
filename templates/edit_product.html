@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Product</title>
+</head>
+<body>
+    <!-- 🔹 Navigation -->
+    <p>
+        <a href="{{ url_for('catalogue') }}">🏠 Home</a> |
+        <a href="{{ url_for('admin_products') }}">⚙ Manage Products</a> |
+        <a href="{{ url_for('logout') }}">🚪 Logout</a>
+    </p>
+    <hr>
+
+    <h1>✏ Edit Product</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="text" name="name" value="{{ product.name }}" required><br>
+        <textarea name="description">{{ product.description }}</textarea><br>
+        <input type="number" step="0.01" name="price" value="{{ product.price }}" required><br>
+        <input type="number" name="stock" value="{{ product.stock }}" required><br>
+        <input type="file" name="image"><br><br>
+        <button type="submit">Update</button>
+    </form>
+</body>
+</html>
